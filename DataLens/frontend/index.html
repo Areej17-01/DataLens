@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DataLens</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="logo">Data<span>Lens</span></div>
+    <div class="nav-steps">
+      <div class="step-dot active" data-page="0" title="Welcome"></div>
+      <div class="step-dot" data-page="1" title="Upload"></div>
+      <div class="step-dot" data-page="2" title="Chat"></div>
+    </div>
+  </nav>
+
+  <!-- PAGE 1: HERO -->
+  <section class="screen visible" id="s0">
+    <div class="hero">
+      <div class="hero-left">
+        <div class="hero-tag">Document intelligence</div>
+        <h1 class="hero-h1">Ask anything.<br>From any <span class="animated-word">document</span></h1>
+        <p class="hero-sub">Upload a PDF or CSV and get instant answers, summaries, and insights — no setup needed.</p>
+        <div class="name-form">
+          <input class="name-input" id="nameInput" type="text" placeholder="Your name" maxlength="40" />
+          <button class="btn-primary" id="startBtn">Get started</button>
+        </div>
+        <div id="nameErr" class="field-err"></div>
+      </div>
+      <div class="hero-right">
+        <div class="info-card">
+          <h3 class="info-card-title">What you can do</h3>
+          <div class="feature-item">
+            <div class="f-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M9 16h6M17 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2z"/></svg>
+            </div>
+            <div>
+              <div class="f-title">Document Q&A</div>
+              <div class="f-desc">Ask questions about your reports in plain language</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="f-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <div>
+              <div class="f-title">Live plots &amp; dashboards</div>
+              <div class="f-desc">Auto-generates charts and interactive HTML dashboards</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="f-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><path d="M13 2v7h7"/></svg>
+            </div>
+            <div>
+              <div class="f-title">PDF &amp; CSV ready</div>
+              <div class="f-desc">Reports, research, datasets — all supported</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="f-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            </div>
+            <div>
+              <div class="f-title">Multimodal context</div>
+              <div class="f-desc">Retrieved figures and images shown alongside answers</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE 2: UPLOAD -->
+  <section class="screen" id="s1">
+    <div class="upload-pg">
+      <div class="upload-left">
+        <div class="pg-tag">Step 1 of 2</div>
+        <h2 class="pg-h2">Upload your document</h2>
+        <p class="pg-sub">Choose a PDF or CSV. We'll extract text and images, then prepare it for chat.</p>
+
+        <label class="upload-box" for="fileInput" id="uploadBox">
+          <input type="file" id="fileInput" accept=".pdf,.csv" multiple />
+          <div class="upload-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          </div>
+          <div class="upload-title">Click to choose a file</div>
+          <div class="upload-hint">PDF or CSV · up to 50 MB · max 3 files · up to 2 PDFs, 1 CSV</div>
+          <div class="file-types">
+            <span class="ft-badge">PDF</span>
+            <span class="ft-badge">CSV</span>
+          </div>
+        </label>
+
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="upload-status" id="uploadStatus">No file selected</div>
+          <div class="file-status-list hidden" id="fileStatusList"></div>
+
+        <div class="nav-btns">
+          <button class="btn-outline" id="backToHero">← Back</button>
+          <button class="btn-primary" id="nextToChat" disabled>Continue to chat →</button>
+        </div>
+      </div>
+
+      <div class="upload-right">
+        <div class="how-card">
+          <div class="how-title">How it works</div>
+          <div class="flow-step">
+            <div class="flow-num">1</div>
+            <div><div class="flow-text">Upload file</div><div class="flow-sub">PDF or CSV, up to 50 MB</div></div>
+          </div>
+          <div class="flow-line"></div>
+          <div class="flow-step">
+            <div class="flow-num">2</div>
+            <div><div class="flow-text">Processing</div><div class="flow-sub">Text and images extracted</div></div>
+          </div>
+          <div class="flow-line"></div>
+          <div class="flow-step">
+            <div class="flow-num">3</div>
+            <div><div class="flow-text">Indexing</div><div class="flow-sub">Content chunked and stored</div></div>
+          </div>
+          <div class="flow-line"></div>
+          <div class="flow-step">
+            <div class="flow-num">4</div>
+            <div><div class="flow-text">Ready to chat</div><div class="flow-sub">Ask anything about the document</div></div>
+          </div>
+        </div>
+
+        <div class="tools-card">
+          <div class="tools-title">7 tools available</div>
+          <div class="tools-desc">What this workspace can do for you:</div>
+          <ul class="tool-list">
+            <li><strong>Document RAG</strong> — retrieve PDF text and images</li>
+            <li><strong>CSV Analyst</strong> — explore tables, stats, and columns</li>
+            <li><strong>Plot Generator</strong> — build charts from data</li>
+            <li><strong>Dashboard Builder</strong> — create HTML reporting dashboards</li>
+            <li><strong>Ares Web Search</strong> — fetch live web data</li>
+            <li><strong>Slide Generator</strong> — make presentation summaries</li>
+            <li><strong>YFinance</strong> — get stock and market info</li>
+          </ul>
+        </div>
+
+        <div class="metrics-row">
+          <div class="metric-chip">
+            <span class="metric-val" id="metricDocs">0</span>
+            <span class="metric-lbl">Documents</span>
+          </div>
+          <div class="metric-chip">
+            <span class="metric-val" id="metricQueries">0</span>
+            <span class="metric-lbl">Queries</span>
+          </div>
+          <div class="metric-chip">
+            <span class="metric-val" id="metricSession">—</span>
+            <span class="metric-lbl">Session</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE 3: CHAT -->
+  <section class="screen" id="s2">
+    <div class="chat-layout">
+
+      <!-- Chat panel -->
+      <div class="chat-main">
+        <div class="chat-header">
+          <div>
+            <div class="chat-title" id="chatTitle">DataLens Chat</div>
+            <div class="chat-doc" id="chatDoc">No document loaded</div>
+          </div>
+          <div class="chat-header-right">
+            <span class="chat-badge" id="chatBadge">Ready</span>
+            <button class="btn-outline btn-sm" id="backToUpload">← Upload</button>
+          </div>
+        </div>
+
+        <div class="chat-msgs" id="chatMsgs">
+          <div class="msg ai">
+            <div class="msg-avatar ai">DL</div>
+            <div class="msg-bubble">Hi! Upload a document and I'll be ready to answer questions — summaries, key numbers, plots, dashboards, or anything specific.</div>
+          </div>
+        </div>
+
+        <div id="chatStatusBar" class="chat-status-bar hidden"></div>
+
+        <div class="chat-input-row hidden" id="chatInputRow">
+          <textarea class="chat-input" id="questionInput" placeholder="Upload and process files first to ask a question..." rows="1" disabled></textarea>
+          <button class="send-btn" id="askButton" disabled>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Evidence panel -->
+      <div class="evidence-panel" id="evidencePanel">
+
+        <div class="evidence-header">
+          <span class="evidence-title">Inspector</span>
+          <button class="collapse-btn" id="collapseEvidence" title="Toggle panel">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+        </div>
+
+        <!-- Tab bar -->
+        <div class="evidence-tabs" id="evidenceTabs">
+          <button class="etab active" data-tab="context">
+            <svg viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h12M2 8h8M2 12h10"/></svg>
+            Context
+          </button>
+          <button class="etab" data-tab="images">
+            <svg viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="14" height="10" rx="1.5"/><path d="M1 10l3.5-3.5L8 10l2.5-2.5L15 10"/></svg>
+            Images
+          </button>
+          <button class="etab" data-tab="generated">
+            <svg viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 11 5 6 8 9 11 5 15 8"/><path d="M1 13h14"/></svg>
+            Plots
+          </button>
+          <button class="etab" data-tab="slides">
+            <svg viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="10" rx="1.5"/><path d="M2 6h12"/><path d="M5 9h6"/></svg>
+            Generated slides
+          </button>
+          <button class="etab" data-tab="dashboard">
+            <svg viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="1" width="6" height="7" rx="1"/><rect x="9" y="1" width="6" height="4" rx="1"/><rect x="1" y="10" width="6" height="5" rx="1"/><rect x="9" y="7" width="6" height="8" rx="1"/></svg>
+            Dashboard
+          </button>
+          <button class="etab" data-tab="code">
+            <svg viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4L1 8l4 4M11 4l4 4-4 4M9 2l-2 12"/></svg>
+            Code
+          </button>
+          <button class="etab" data-tab="reasoning">
+            <svg viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"/><path d="M8 5v3.5l2 2"/></svg>
+            Reasoning
+          </button>
+          <button class="etab" data-tab="output">
+            <svg viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="2" width="14" height="12" rx="1.5"/><path d="M4 6l2 2-2 2M8 10h4"/></svg>
+            Output
+          </button>
+        </div>
+
+        <!-- Tab panes -->
+        <div class="evidence-panes">
+
+          <div class="epane active" id="pane-context">
+            <div class="pane-label">Retrieved text passages</div>
+            <pre class="epre context-pre" id="retrievedContext">No context retrieved yet. Ask a question to see relevant passages.</pre>
+          </div>
+
+          <div class="epane" id="pane-images">
+            <div class="pane-label">Figures &amp; extracted images</div>
+            <div class="retrieved-images" id="retrievedImages">
+              <span class="no-content-msg">No images retrieved yet.</span>
+            </div>
+          </div>
+
+          <!-- Generated plots pane -->
+          <div class="epane" id="pane-generated">
+            <div class="plots-topbar">
+              <span class="plots-label">matplotlib output</span>
+              <span class="plots-count" id="plotsCount"></span>
+            </div>
+            <div class="plots-scroll" id="retrievedGeneratedImages">
+              <div class="no-plots-state">
+                <svg viewBox="0 0 48 48" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 34 16 20 24 28 32 16 42 24"/><path d="M6 42h36"/></svg>
+                <span>No plots generated yet</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slides pane -->
+          <div class="epane" id="pane-slides">
+            <div class="slides-topbar">
+              <span class="slides-label">Generated slide files</span>
+              <span class="slides-count" id="slidesCount"></span>
+            </div>
+            <div class="slides-scroll" id="retrievedSlides">
+              <div class="no-plots-state">
+                <svg viewBox="0 0 48 48" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="10" width="28" height="28" rx="4"/><path d="M14 16h20"/><path d="M14 24h20"/><path d="M14 32h12"/></svg>
+                <span>No slides generated yet</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dashboard pane -->
+          <div class="epane" id="pane-dashboard">
+            <div class="dashboard-topbar">
+              <span class="dashboard-label">Interactive dashboard</span>
+              <div class="dashboard-actions">
+                <button class="dash-action-btn" id="dashOpenBtn" title="Open in new tab">
+                  <svg viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3H3a1 1 0 00-1 1v9a1 1 0 001 1h9a1 1 0 001-1V9"/><path d="M10 2h4v4"/><line x1="14" y1="2" x2="7" y2="9"/></svg>
+                </button>
+                <button class="dash-action-btn" id="dashRefreshBtn" title="Reload">
+                  <svg viewBox="0 0 16 16" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 8A5.5 5.5 0 112.5 5"/><polyline points="2.5 2 2.5 5 5.5 5"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="dashboard-frame-wrap" id="dashboardFrameWrap">
+              <div class="no-dashboard-state" id="noDashboardState">
+                <svg viewBox="0 0 48 48" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="18" height="22" rx="2"/><rect x="26" y="4" width="18" height="12" rx="2"/><rect x="4" y="32" width="18" height="12" rx="2"/><rect x="26" y="22" width="18" height="22" rx="2"/></svg>
+                <span>No dashboard generated yet</span>
+                <p>Ask DataLens to "create a dashboard" or "build an interactive chart"</p>
+              </div>
+              <iframe class="dashboard-iframe hidden" id="dashboardIframe" sandbox="allow-scripts allow-same-origin"></iframe>
+            </div>
+          </div>
+
+          <div class="epane" id="pane-code">
+            <div class="code-topbar">
+              <span class="lang-badge">python</span>
+              <span class="code-label">Executed code</span>
+            </div>
+            <pre class="epre code-pre" id="retrievedCode">No code executed yet.</pre>
+          </div>
+
+          <div class="epane" id="pane-reasoning">
+            <div class="pane-label">Chain-of-thought</div>
+            <pre class="epre reasoning-pre" id="retrievedReasoning">No reasoning available.</pre>
+          </div>
+
+          <div class="epane" id="pane-output">
+            <div class="output-topbar">
+              <span class="output-dot"></span>
+              <span class="output-label">stdout / result</span>
+            </div>
+            <pre class="epre output-pre" id="retrievedOutput">No output available.</pre>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>

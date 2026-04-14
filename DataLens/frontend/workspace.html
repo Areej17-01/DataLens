@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DataLens | Workspace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="background-overlay"></div>
+
+  <div class="page-shell">
+    <header class="hero-panel glass-card compact-hero">
+      <div class="hero-copy">
+        <p class="eyebrow">DataLens Workspace</p>
+        <h1 id="workspace-heading">Your document workspace</h1>
+        <p class="hero-description">
+          Upload a PDF or CSV, process it into searchable context, then ask questions, request translations,
+          and inspect retrieved evidence.
+        </p>
+      </div>
+      <div class="workspace-session glass-subcard">
+        <p class="metric-label">Active User</p>
+        <h2 id="user-name">Guest</h2>
+        <p class="metric-label session-gap">Session UUID</p>
+        <code id="session-id">Not generated</code>
+      </div>
+    </header>
+
+    <section class="notice-strip glass-card">
+      Upload only PDF and CSV for now. After processing, you can ask for summaries, explanations, and translations.
+    </section>
+
+    <section class="content-grid">
+      <article class="card glass-card panel active">
+        <div class="panel-header">
+          <div>
+            <p class="panel-eyebrow">Step 2</p>
+            <h2>Upload and process</h2>
+          </div>
+          <span class="badge accent">PDF / CSV only</span>
+        </div>
+
+        <form id="upload-form" class="form-grid">
+          <label class="file-label" for="file-input">
+            <input id="file-input" type="file" accept=".pdf,.csv" />
+            <div>
+              <strong>Choose a document</strong>
+              <p>Upload a PDF report or CSV dataset to prepare the workspace for chat.</p>
+            </div>
+          </label>
+          <button type="submit" class="primary-button">Upload Document</button>
+        </form>
+
+        <div id="upload-status" class="status-panel">Upload a file to begin processing.</div>
+      </article>
+
+      <article class="card glass-card panel active">
+        <div class="panel-header">
+          <div>
+            <p class="panel-eyebrow">Step 3</p>
+            <h2>Chat with your document</h2>
+          </div>
+          <span class="badge neutral">Streamed response</span>
+        </div>
+
+        <textarea id="question-input" placeholder="Ask for a summary, a translation, key metrics, or an explanation of an extracted figure..."></textarea>
+        <button id="ask-button" class="primary-button" disabled>Ask DataLens</button>
+        <div id="chat-status" class="status-panel">Upload a document to unlock chat.</div>
+      </article>
+    </section>
+
+    <section class="metrics-grid">
+      <article class="metric-card glass-card floating-card">
+        <p class="metric-label">Documents Uploaded</p>
+        <h2 id="metric-documents">0</h2>
+      </article>
+      <article class="metric-card glass-card floating-card">
+        <p class="metric-label">Queries Asked</p>
+        <h2 id="metric-queries">0</h2>
+      </article>
+      <article class="metric-card glass-card floating-card">
+        <p class="metric-label">Current Session</p>
+        <h2 id="metric-session">-</h2>
+      </article>
+    </section>
+
+    <section class="card glass-card answer-card">
+      <div class="panel-header">
+        <div>
+          <p class="panel-eyebrow">Live Answer</p>
+          <h2>Streamed response</h2>
+        </div>
+        <span class="badge success">Realtime</span>
+      </div>
+      <pre id="answer-output" class="answer-output">Your answer will appear here as it streams in.</pre>
+    </section>
+
+    <section class="card glass-card result-card">
+      <button id="toggle-results" class="collapse-toggle" type="button">Show Retrieved Context & Images</button>
+      <div id="results-panel" class="results-panel hidden">
+        <div class="evidence-panel">
+          <div class="evidence-tabs">
+            <button class="etab active" data-tab="context">Context</button>
+            <button class="etab" data-tab="images">Images</button>
+            <button class="etab" data-tab="generated">Generated plots</button>
+            <button class="etab" data-tab="code">Code</button>
+            <button class="etab" data-tab="reasoning">Reasoning</button>
+            <button class="etab" data-tab="output">Output</button>
+          </div>
+          <div class="evidence-panes">
+            <div id="pane-context" class="epane active">
+              <div class="pane-label">Retrieved Text Context</div>
+              <pre id="retrieved-context" class="epre context-pre">No context available yet.</pre>
+            </div>
+            <div id="pane-images" class="epane">
+              <div class="pane-label">Retrieved Images</div>
+              <div id="retrieved-images" class="retrieved-images">No images yet.</div>
+            </div>
+            <div id="pane-generated" class="epane">
+              <div class="pane-label">Generated plots</div>
+              <div id="retrievedGeneratedImages" class="retrieved-images">No generated plots yet.</div>
+            </div>
+            <div id="pane-code" class="epane">
+              <div class="pane-label">Execution Code</div>
+              <pre id="retrievedCode" class="epre code-pre">No code was executed for this query.</pre>
+            </div>
+            <div id="pane-reasoning" class="epane">
+              <div class="pane-label">Tool reasoning</div>
+              <pre id="retrievedReasoning" class="epre reasoning-pre">Waiting for reasoning…</pre>
+            </div>
+            <div id="pane-output" class="epane">
+              <div class="pane-label">Model/tool output</div>
+              <div class="output-topbar"><span class="output-dot"></span><span class="output-label">Output trace</span></div>
+              <pre id="retrievedOutput" class="epre code-pre">Waiting for output…</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

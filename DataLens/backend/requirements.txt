@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+qdrant-client
+transformers>=4.44,<4.45
+tokenizers>=0.19,<0.20
+torch
+numpy
+Pillow
+PyMuPDF
+langchain-text-splitters
+python-multipart
+openai
+python-dotenv
