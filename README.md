@@ -4,6 +4,7 @@
 
 - Original AgentPro project: https://github.com/traversaal-ai/AgentPro
 - DataLens extends the AgentPro-style toolkit with document-centric tools.
+- Multi modal code article: https://ai.gopubby.com/multi-modal-enterprise-rag-architecture-from-scratch-a3a12df0d055
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.8%2B-blue" alt="Python 3.8+">
