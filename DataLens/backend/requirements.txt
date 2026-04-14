@@ -3,6 +3,8 @@ uvicorn
 qdrant-client
 transformers>=4.44,<4.45
 tokenizers>=0.19,<0.20
+huggingface_hub>=0.24,<0.26
+einops
 torch
 numpy
 Pillow
@@ -11,3 +13,4 @@ langchain-text-splitters
 python-multipart
 openai
 python-dotenv
+google.generativeai

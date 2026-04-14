@@ -138,7 +138,7 @@ flowchart TD
 
 ### Prerequisites
 
-- Python 3.8+
+- Python 3.12
 - A running **Qdrant** instance — either [Qdrant Cloud](https://cloud.qdrant.io/) (free tier available) or local Docker:
   ```bash
   docker run -p 6333:6333 qdrant/qdrant
@@ -181,7 +181,8 @@ GEMINI_MODEL=gemini-2.0-flash
 
 ```bash
 cd DataLens/backend
-python main.py
+python -m backend.main
+uvicorn DataLens.backend.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 The FastAPI server starts at `http://localhost:8000`.
