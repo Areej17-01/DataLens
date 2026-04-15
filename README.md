@@ -324,4 +324,8 @@ Apache 2.0. See [LICENSE.txt](LICENSE.txt).
 
 ## Preview
 
-<video src="DataLens.mp4" controls width="100%"></video>
+
+https://github.com/user-attachments/assets/42d71d83-57ae-442d-8e22-d798139461e9
+
+
+A visual walkthrough showing how different tools perform on sample documents.
