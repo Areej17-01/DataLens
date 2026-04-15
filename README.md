@@ -319,3 +319,9 @@ The architecture is intentionally modular:
 ## License
 
 Apache 2.0. See [LICENSE.txt](LICENSE.txt).
+
+---
+
+## Preview
+
+<video src="DataLens.mp4" controls width="100%"></video>

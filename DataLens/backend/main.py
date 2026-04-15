@@ -141,6 +141,7 @@ class DataLensAppState:
                 model_name=GEMINI_MODEL,
                 api_key=GEMINI_API_KEY,
                 litellm_provider="gemini",
+                max_tokens=8192,
             ),
             tools=[
                 self.rag_tool,
@@ -177,6 +178,7 @@ class DataLensAppState:
             "- If the query is ambiguous or could relate to both uploaded files → use both csv_analyst and datalens_rag and combine the results\n"
             "- If the query needs external information → use ares_tool\n\n"
             "All tools accept: {\"session_id\": \"<session_id>\", \"query\": \"<user question>\"}"
+            "Donot add any paths in final response. The response should bever contain any path but normal natural answer."
         ),
             max_iterations=20,
         )
@@ -298,7 +300,7 @@ async def chat(session_id: str, query: str):
     )
     agent_response = state.agent.run(agent_query)
     tool_output = extract_tool_output(agent_response)
-    if not tool_output.get("retrieved_context") and not tool_output.get("image_paths") and not tool_output.get("insight") and not tool_output.get("plot_paths"):
+    if not tool_output.get("retrieved_context") and not tool_output.get("image_paths") and not tool_output.get("insight") and not tool_output.get("plot_paths") and not tool_output.get("dashboard_url") and not tool_output.get("code") and not tool_output.get("python_output"):
         tool_output = state.rag_tool.run({"session_id": session_id, "query": query})
     final_answer = getattr(agent_response, "final_answer", "") or tool_output.get("llm_response", "") or tool_output.get("insight", "")
 

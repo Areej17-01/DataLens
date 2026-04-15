@@ -11,11 +11,13 @@ build/
 # Environment variables
 .env
 local.txt
-
+DataLens/backend/temp
 # Virtual environment
 venv/
 env/
 .env
+
+
 # IDE files
 .idea/
 .vscode/

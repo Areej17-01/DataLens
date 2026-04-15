@@ -48,7 +48,7 @@ class DashboardGeneratorTool(Tool):
 
         session_id = input_data.get("session_id")
         query      = input_data.get("query", "")
-        data       = str(input_data.get("data", ""))[:6000]  # raised cap for richer data
+        data       = str(input_data.get("data", ""))[:15000]  # raised cap for richer data
 
         if not session_id or not query:
             return self._error("Missing session_id or query.")
